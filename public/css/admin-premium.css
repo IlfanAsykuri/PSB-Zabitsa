@@ -1,0 +1,90 @@
+/* Ensure clean background without gradients */
+body, .page-wrapper, .page, .page-body {
+    background: #F8F5F0 !important;
+    background-image: none !important;
+}
+
+/* Rounded Cards with soft shadow */
+.card, .box {
+    border: none !important;
+    border-radius: 1rem !important;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05) !important;
+    overflow: hidden;
+    background: #FFFFFF !important;
+}
+
+/* Elegant Table headers */
+.table th {
+    text-transform: uppercase !important;
+    font-size: 0.75rem !important;
+    letter-spacing: 0.5px !important;
+    background-color: #fcfbf9 !important;
+    color: #4A3B2A !important;
+    border-bottom: 2px solid #E8E0D5 !important;
+    padding: 12px 15px !important;
+}
+
+/* Subtle table rows */
+.table td {
+    border-bottom: 1px solid #f0f0f0 !important;
+    padding: 14px 15px !important;
+    vertical-align: middle !important;
+}
+
+/* Buttons overriding primary class to Gold */
+.btn-primary, .btn-success, .btn-info {
+    background-color: #B59551 !important;
+    border: none !important;
+    color: white !important;
+    transition: all 0.2s ease-in-out !important;
+    border-radius: 0.5rem !important;
+}
+
+.btn-primary:hover, .btn-success:hover, .btn-info:hover {
+    background-color: #9A7B4F !important;
+    transform: translateY(-1px) !important;
+    box-shadow: 0 4px 12px rgba(181, 149, 81, 0.3) !important;
+    color: white !important;
+}
+
+/* Active Nav Links */
+.nav-link.active {
+    color: #B59551 !important;
+    border-bottom: 2px solid #B59551 !important;
+    font-weight: 600 !important;
+}
+
+/* Inputs / Search bars */
+.form-control, .dataTables_filter input {
+    border-radius: 0.5rem !important;
+    border: 1px solid #E8E0D5 !important;
+}
+
+.form-control:focus {
+    border-color: #B59551 !important;
+    box-shadow: 0 0 0 0.2rem rgba(181, 149, 81, 0.25) !important;
+}
+
+/* Navbar override */
+.navbar {
+    background-color: #FFFFFF !important;
+    border-bottom: 1px solid #E8E0D5 !important;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.02) !important;
+}
+
+/* General Link colors inside Backpack */
+a {
+    color: #B59551;
+}
+a:hover {
+    color: #4A3B2A;
+}
+
+.page-header {
+    margin-bottom: 1.5rem;
+}
+
+.page-title {
+    color: #4A3B2A;
+    font-weight: 800;
+}
