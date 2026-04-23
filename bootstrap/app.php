@@ -17,6 +17,10 @@ return Application::configure(basePath: dirname(__DIR__))
             'permission'         => \Spatie\Permission\Middleware\PermissionMiddleware::class,
             'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,
         ]);
+
+        // Jika user SUDAH login tapi nyasar ke halaman login/register,
+        // arahkan mereka ke Dashboard Admin, bukan ke Home
+        $middleware->redirectUsersTo('/admin/dashboard');
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //

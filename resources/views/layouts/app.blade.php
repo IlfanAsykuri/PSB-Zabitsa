@@ -422,11 +422,13 @@
             offset: 60
         });
 
-        // Navbar scroll effect
+        // 1. Efek Scroll Navbar & Tombol Back-to-Top (Dipercepat)
         window.addEventListener('scroll', () => {
             const nav = document.getElementById('navbar');
             const btn = document.getElementById('back-to-top');
-            if (window.scrollY > 80) {
+
+            // Ubah dari 80 ke 20 agar navbar langsung responsif seketika saat disentuh
+            if (window.scrollY > 20) {
                 nav.classList.add('scrolled');
                 btn.classList.add('visible');
             } else {
@@ -435,9 +437,19 @@
             }
         });
 
+        // 2. Fungsi Buka/Tutup Menu Mobile (Tombol Burger)
         function toggleMobileMenu() {
             document.getElementById('mobile-menu').classList.toggle('hidden');
         }
+
+        // 3. Fungsi Auto-Close Menu Mobile
+        // Otomatis mencari semua link di dalam menu mobile
+        document.querySelectorAll('#mobile-menu a').forEach(link => {
+            link.addEventListener('click', () => {
+                // Sembunyikan menu seketika saat link diklik
+                document.getElementById('mobile-menu').classList.add('hidden');
+            });
+        });
     </script>
     @stack('scripts')
 </body>
