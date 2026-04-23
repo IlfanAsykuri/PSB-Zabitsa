@@ -17,33 +17,21 @@ class DashboardController extends Controller
         $ditolak         = Santri::where('status_verifikasi', 'ditolak')->count();
         $prosesVerif     = Santri::where('status_verifikasi', 'proses')->count();
 
-        // Group by education level for chart berdasarkan Lembaga Tujuan (kode_lembaga)
+        // Ambil jumlah santri berdasarkan kode lembaga yang dituju
         $eduRaw = Santri::select('kode_lembaga', DB::raw('count(*) as total'))
             ->groupBy('kode_lembaga')
             ->get();
 
-        $eduGroups = [
-            'Tingkat Dasar (MI/SD)' => 0,
-            'SLTP (SMP/MTs)' => 0,
-            'SLTA (SMA/MA/SMK)' => 0,
-            'Lainnya' => 0
-        ];
+        // Siapkan array kosong
+        $eduGroups = [];
 
+        // Masukkan data langsung ke array sesuai nama lembaganya
         foreach ($eduRaw as $row) {
-            // Ubah kode lembaga menjadi huruf kecil untuk mempermudah pengecekan
-            // Contoh kode: minm, smp-nj, mts-nj, manj, sma-nj, smk-nj, unuja, khorijin
-            $kode = strtolower($row->kode_lembaga);
+            // Jika kode lembaga kosong (belum memilih), beri label 'Lainnya' atau 'Belum Memilih'
+            $kode = $row->kode_lembaga ? $row->kode_lembaga : 'Belum Memilih';
 
-            if (str_contains($kode, 'mi') || str_contains($kode, 'sd')) {
-                $eduGroups['Tingkat Dasar (MI/SD)'] += $row->total;
-            } elseif (str_contains($kode, 'mts') || str_contains($kode, 'smp')) {
-                $eduGroups['SLTP (SMP/MTs)'] += $row->total;
-            } elseif (str_contains($kode, 'ma') || str_contains($kode, 'sma') || str_contains($kode, 'smk')) {
-                $eduGroups['SLTA (SMA/MA/SMK)'] += $row->total;
-            } else {
-                // Untuk kode lembaga seperti 'unuja' atau 'khorijin' akan masuk ke sini
-                $eduGroups['Lainnya'] += $row->total;
-            }
+            // Format array: ['SMP-NJ' => 15, 'MANJ' => 10, dst...]
+            $eduGroups[$kode] = $row->total;
         }
 
         // Recent registrations
