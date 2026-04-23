@@ -190,7 +190,7 @@
                 <div class="p-8 rounded-2xl"
                     style="background:rgba(255,255,255,0.06);border:1px solid rgba(181,149,81,0.3);" data-aos="fade-up">
                     <div class="font-bold text-white mb-3 text-lg">Pendaftaran Online</div>
-                    <p class="text-white/80 text-sm leading-relaxed mb-4">1 Maret s.d 9 Juli 2025</p>
+                    <p class="text-white/80 text-sm leading-relaxed mb-4">1 Maret s.d 9 Juli 2026</p>
                     <div class="mt-auto">
                         <a href="https://psb.nuruljadid.net" target="_blank"
                             class="text-[#D4B483] font-semibold text-sm hover:underline flex items-center gap-2">

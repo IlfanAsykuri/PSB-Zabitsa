@@ -288,15 +288,10 @@
 
                 {{-- Logo --}}
                 <a href="{{ route('home') }}" class="nav-logo font-bold text-lg flex items-center gap-2">
-                    <div
-                        style="width:36px;height:36px;background:linear-gradient(135deg,#B59551,#D4B483);border-radius:8px;display:flex;align-items:center;justify-content:center;">
-                        <svg width="20" height="20" fill="white" viewBox="0 0 24 24">
-                            <path
-                                d="M12 3L1 9l4 2.18V15h1v3H5v2h14v-2h-1v-3h1V11.18L19 9v1h2V9L12 3zm5 12v3H7v-3h10z" />
-                        </svg>
-                    </div>
-                    <span style="color:#B59551;font-family:'Playfair Display',serif;">Zabitsa</span>&nbsp;<span
-                        style="color:#4A3B2A;font-weight:400;font-size:0.85rem;">PSB</span>
+                    <img src="{{ asset('assets/images/Logo.png') }}" alt="Logo Zabitsa"
+                        style="height: 40px; width: auto; border-radius: 4px; object-fit: contain;">
+
+                    <span style="color:#B59551;font-family:'Playfair Display',serif;">Zabitsa</span>
                 </a>
 
                 {{-- Desktop menu --}}
