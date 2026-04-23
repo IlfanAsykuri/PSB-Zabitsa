@@ -17,23 +17,31 @@ class DashboardController extends Controller
         $ditolak         = Santri::where('status_verifikasi', 'ditolak')->count();
         $prosesVerif     = Santri::where('status_verifikasi', 'proses')->count();
 
-        // Group by education level for chart
-        // Map nama_pendidikan_terakhir to categories
-        $eduRaw = Santri::select('nama_pendidikan_terakhir', DB::raw('count(*) as total'))
-            ->groupBy('nama_pendidikan_terakhir')
+        // Group by education level for chart berdasarkan Lembaga Tujuan (kode_lembaga)
+        $eduRaw = Santri::select('kode_lembaga', DB::raw('count(*) as total'))
+            ->groupBy('kode_lembaga')
             ->get();
 
-        $eduGroups = ['Tingkat Dasar (MI/SD)' => 0, 'SLTP (SMP/MTs)' => 0, 'SLTA (SMA/MA/SMK)' => 0, 'Lainnya' => 0];
+        $eduGroups = [
+            'Tingkat Dasar (MI/SD)' => 0,
+            'SLTP (SMP/MTs)' => 0,
+            'SLTA (SMA/MA/SMK)' => 0,
+            'Lainnya' => 0
+        ];
 
         foreach ($eduRaw as $row) {
-            $name = strtolower($row->nama_pendidikan_terakhir);
-            if (str_contains($name, 'mi') || str_contains($name, 'sd') || str_contains($name, 'dasar')) {
+            // Ubah kode lembaga menjadi huruf kecil untuk mempermudah pengecekan
+            // Contoh kode: minm, smp-nj, mts-nj, manj, sma-nj, smk-nj, unuja, khorijin
+            $kode = strtolower($row->kode_lembaga);
+
+            if (str_contains($kode, 'mi') || str_contains($kode, 'sd')) {
                 $eduGroups['Tingkat Dasar (MI/SD)'] += $row->total;
-            } elseif (str_contains($name, 'mts') || str_contains($name, 'smp') || str_contains($name, 'tsana')) {
+            } elseif (str_contains($kode, 'mts') || str_contains($kode, 'smp')) {
                 $eduGroups['SLTP (SMP/MTs)'] += $row->total;
-            } elseif (str_contains($name, 'ma') || str_contains($name, 'sma') || str_contains($name, 'smk') || str_contains($name, 'aliyah')) {
+            } elseif (str_contains($kode, 'ma') || str_contains($kode, 'sma') || str_contains($kode, 'smk')) {
                 $eduGroups['SLTA (SMA/MA/SMK)'] += $row->total;
             } else {
+                // Untuk kode lembaga seperti 'unuja' atau 'khorijin' akan masuk ke sini
                 $eduGroups['Lainnya'] += $row->total;
             }
         }
@@ -45,9 +53,14 @@ class DashboardController extends Controller
             ->get();
 
         return view('vendor.backpack.ui.dashboard', compact(
-            'totalSantri', 'sudahDatang', 'belumDatang',
-            'diverifikasi', 'ditolak', 'prosesVerif',
-            'eduGroups', 'recentSantri'
+            'totalSantri',
+            'sudahDatang',
+            'belumDatang',
+            'diverifikasi',
+            'ditolak',
+            'prosesVerif',
+            'eduGroups',
+            'recentSantri'
         ));
     }
 }
