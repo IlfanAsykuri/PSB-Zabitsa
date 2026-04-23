@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
     <title>@yield('title', 'PSB Wilayah Zaid bin Tsabit — PP Nurul Jadid')</title>
     <meta name="description" content="@yield('meta_description', 'Penerimaan Santri Baru Wilayah Zaid bin Tsabit Putra Pondok Pesantren Nurul Jadid. Daftarkan putra Anda sekarang.')">
     <meta name="csrf-token" content="{{ csrf_token() }}">
@@ -62,15 +62,19 @@
             box-sizing: border-box;
         }
 
-        html {
+        html,
+        body {
             scroll-behavior: smooth;
+            max-width: 100vw;
+            overflow-x: hidden;
+            width: 100%;
         }
 
         body {
             font-family: 'Inter', sans-serif;
             background: var(--cream);
             color: var(--brown);
-            overflow-x: hidden;
+            position: relative;
         }
 
         /* ---- Navbar ---- */
@@ -275,6 +279,14 @@
             .hero-section h1 {
                 font-size: 2rem !important;
             }
+
+            /* Paksa navbar langsung solid di mobile tanpa nunggu scroll */
+            #navbar {
+                background: #F8F5F0 !important;
+                padding: 0.8rem 0 !important;
+                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05) !important;
+            }
+        }
         }
     </style>
 </head>
@@ -304,9 +316,11 @@
                 </div>
 
                 <div class="hidden md:flex items-center gap-3">
-                    <a href="/admin/login" class="btn-gold text-sm py-2 px-5">
-                        Login
-                    </a>
+                    @if (backpack_auth()->check())
+                        <a href="{{ backpack_url('dashboard') }}" class="btn-gold text-sm py-2 px-5">Dashboard</a>
+                    @else
+                        <a href="{{ backpack_url('login') }}" class="btn-gold text-sm py-2 px-5">Login</a>
+                    @endif
                 </div>
 
                 {{-- Mobile hamburger --}}
@@ -326,7 +340,12 @@
                     <a href="{{ route('home') }}#persiapan" class="nav-link-item">Persiapan</a>
                     <a href="{{ route('home') }}#kontak" class="nav-link-item">Kontak</a>
                     <a href="{{ route('cek.status') }}" class="nav-link-item">Cek Status</a>
-                    <a href="/admin/login" class="btn-gold text-sm mt-2 self-start">Login</a>
+                    @if (backpack_auth()->check())
+                        <a href="{{ backpack_url('dashboard') }}"
+                            class="btn-gold text-sm mt-2 self-start">Dashboard</a>
+                    @else
+                        <a href="{{ backpack_url('login') }}" class="btn-gold text-sm mt-2 self-start">Login</a>
+                    @endif
                 </div>
             </div>
         </div>
